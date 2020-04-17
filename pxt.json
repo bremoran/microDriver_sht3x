@@ -11,7 +11,9 @@
         "microDriver_sht3x.cpp",
         "microDriver_sht3x.h",
         "shims.d.ts",
-        "enums.d.ts"
+        "enums.d.ts",
+        "main.ts",
+        "main.blocks"
         
     ],
     "testFiles": [

@@ -21,7 +21,6 @@
 using namespace pxt;
 
 namespace sht3xDriver {
-    static MicroBit uBit;
     static uint16_t temp_raw;
     static uint16_t hum_raw;
 
@@ -33,7 +32,6 @@ namespace sht3xDriver {
         MicroBitI2C i2c(I2C_SDA0, I2C_SCL0);
         int rc = MICROBIT_OK;
         if (MICROBIT_OK != (rc = i2c.write(addr, (const char *)cmdBuffer, 2))) {
-            uBit.serial.printf("SHT31 Write failed\r\n");
             return rc;
         }
         fiber_sleep(70);
@@ -41,7 +39,6 @@ namespace sht3xDriver {
             if (MICROBIT_OK == (rc = i2c.read(addr, (char *)buffer, length))) {
                 return rc;
             }
-            uBit.serial.printf("SHT31 read failed\r\n");
             fiber_sleep(30);
         }
         return rc;
@@ -68,7 +65,6 @@ namespace sht3xDriver {
     int verify_checksum (uint8_t *data, size_t len, uint8_t crcActual) {
         uint8_t crcExpected = crcSlow(data, len);
         if (crcActual != crcExpected) {
-            uBit.serial.printf("crc failed. Expected: %02x. Actual: %02x\r\n", crcExpected, crcActual);
             return MICROBIT_I2C_ERROR;
         }
         return MICROBIT_OK;
@@ -88,53 +84,17 @@ namespace sht3xDriver {
         }
         temp_raw = dataBuffer[0] << 8 | dataBuffer[1];
         hum_raw = dataBuffer[3] << 8 | dataBuffer[4];
-        uBit.serial.printf("Update success with:");
-
-        for (size_t j = 0; j < 6; j++) {
-            uBit.serial.printf("%02x", dataBuffer[j]);
-        }
-        uBit.serial.printf("\r\n");
 
         return rc;
     }
     float getHumidity() {
         float H = 100 * (float)hum_raw / 0xFFFF;
-        uBit.serial.printf("%%RH:%u.%02u\r\n",(unsigned)H, ((unsigned)(H*100))%100);
         return H;
     }
     float getTemperature() {
         float T =  (175 * ((float) temp_raw) - (45*0xFFFFL))/0xFFFFL;
         float absT = T > 0 ? T : -T;
-        uBit.serial.printf("TMP:%d.%02u\r\n", (int)T, ((unsigned)(absT * 100)) % 100);
         return T;
     }
-
-    // uint16_t getHumidityHP(int8_t addr) {
-    //     uint8_t dataBuffer[6];
-    //     int rc = readCommand(addr, 0x2C06, dataBuffer, 6);
-    //     verify_checksum(&dataBuffer[3], 2, dataBuffer[5]);
-    //     uint16_t iH = dataBuffer[3] << 8 | dataBuffer[4];
-    //     return iH;
-    // }
-    // uint16_t getHumidity(int8_t addr) {
-    //     uint32_t iH = getHumidityHP(addr);
-    //     uint16_t H = 100 * iH / 0xFFFF;
-    //     uBit.serial.printf("%%RH:%hu\r\n",H);
-    //     return H;
-    // }
-    // int getTemperatureHP(int8_t addr) {
-    //     uint8_t dataBuffer[6];
-    //     int rc = readCommand(addr, 0x2C06, dataBuffer, 6);
-    //     verify_checksum(dataBuffer, 2, dataBuffer[2]);
-    //     uint16_t iT = dataBuffer[0] << 8 | dataBuffer[1];
-    //     int T =  175 * ((int) iT) - (45*0xFFFFL);
-    //     return T;
-    // }
-    // int getTemperature(int8_t addr) {
-    //     int iT = getTemperatureHP(addr);
-    //     int T = iT / 0xFFFF;
-    //     uBit.serial.printf("TMP:%d\r\n",T);
-    //     return T;
-    // }
 
 }
