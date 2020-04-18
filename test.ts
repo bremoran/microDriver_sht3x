@@ -19,9 +19,15 @@
 
 basic.forever(() => {
     sht3xDriver.update(sht3xDriver.sht3xAddr.sht3xAddrA0);
-    let rh = sht3xDriver.getHumidity();
-    let tmp = sht3xDriver.getTemperature();
-    serial.writeLine("%RH: " + rh);
-    serial.writeLine("TMP: " + tmp);
+    let rh = sht3xDriver.humidity();
+    let tmp = sht3xDriver.temperature();
+    let status = sht3xDriver.status();
+    if (status) {
+        serial.writeLine("sht3x Error: "+status);
+    }
+    else {
+        serial.writeLine("%RH: " + rh);
+        serial.writeLine("TMP: " + tmp);
+    }
     basic.pause(1000);
 })

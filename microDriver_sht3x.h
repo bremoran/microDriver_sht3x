@@ -30,11 +30,13 @@ namespace sht3xDriver {
         SHT3x_A1 = 0x45 << 1,
     } SHT3x_Address;
     //%
-    int update(int8_t addr);
+    void update(int8_t addr);
     //%
-    float getHumidity();
+    unsigned humidityRaw();
     //%
-    float getTemperature();
+    int temperatureRaw();
+    //%
+    int status();
 }
 
 #endif // MICROBITSHT31_H
