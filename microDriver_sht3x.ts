@@ -30,7 +30,9 @@
 //% color=#5c7ef5 weight=25 icon="\uf043" block="sht3x Sensor"
 namespace sht3xDriver {
     export enum sht3xAddr {
+        //% block="A0"
         sht3xAddrA0 = 0x44<<1,
+        //% block="A1"
         sht3xAddrA1 = 0x45<<1,
     }
 
