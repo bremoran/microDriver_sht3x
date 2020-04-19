@@ -1,19 +1,26 @@
 // ----------------------------------------------------------------------------
 // Copyright 2020 Brendan Moran
 //
-// SPDX-License-Identifier: Apache-2.0
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: MIT
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to 
+// deal in the Software without restriction, including without limitation the 
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or 
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// 
 // ----------------------------------------------------------------------------
 
 /** 
@@ -29,7 +36,7 @@
  */
 //% color=#5c7ef5 weight=25 icon="\uf043" block="sht3x Sensor"
 namespace sht3xDriver {
-    export enum sht3xAddr {
+    export enum Sht3xAddr {
         //% block="A0"
         sht3xAddrA0 = 0x44<<1,
         //% block="A1"
@@ -57,8 +64,8 @@ namespace sht3xDriver {
      */
     //% shim=sht3xDriver::update
     //% blockId="SHT3xDriver_update"
-    //% block="updateSHT3x %addr"
-    export function update(addr: sht3xAddr){
+    //% block="SHT3xUpdate %addr"
+    export function update(addr: Sht3xAddr){
         // Dummy implementation for the simulator.
         console.log("Read SHT3x sensor");
     }
@@ -74,7 +81,7 @@ namespace sht3xDriver {
      */
     //% shim=sht3xDriver::status
     //% blockId="SHT3xDriver_status"
-    //% block="sht3x reading status"
+    //% block="SHT3xStatus"
     export function status(): number {
         // Dummy implementation for the simulator.
         console.log("Simulate: Status from SHT3x sensor:");
@@ -97,8 +104,8 @@ namespace sht3xDriver {
      * Returns a number describing the relative humidity in percentage % relative
      * humidity
      */
-    //% blockId="SHT3xDriver_read_humidity"
-    //% block="read humidty"
+    //% blockId="SHT3xDriver_humidity"
+    //% block="SHT3xHumidity"
     export function humidity(): number{
         return 100*humidityRaw()/0xffff;
     }
@@ -118,8 +125,8 @@ namespace sht3xDriver {
      * Read Temperature in degrees celcius from the SHT3x sensor.
      * Returns a number describing the ambient temperature in degrees celcius
      */
-    //% blockId="SHT3xDriver_read_temperature"
-    //% block="read temperature"
+    //% blockId="SHT3xDriver_temperature"
+    //% block="SHT3xTemperature"
     export function temperature(): number{
         return 175*temperatureRaw()/0xFFFF - 45;
     }

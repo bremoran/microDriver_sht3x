@@ -1,6 +1,11 @@
 # A SHT3x driver for micro:bit Makecode
 
-A micro:bit driver for Sensirion SHT3x temperature and humidity sensors.
+A micro:bit driver for Sensirion (SHT3x)[https://www.sensirion.com/en/environmental-sensors/humidity-sensors/digital-humidity-sensors-for-various-applications/] temperature and humidity sensors.
+
+SHT3x sensor boards are available from a variety of manufacturers, such as
+[Adafruit](https://www.adafruit.com/product/2857) and (SeeedStudio)[https://www.seeedstudio.com/Grove-I2C-High-Accuracy-Temp-Humi-Sensor-SHT35.html].
+
+
 This driver is primarily intended as a makecode package for use in the
 [Makecode micro:bit editor](makecode.microbit.org). Recognising that the
 Makecode interpreter has floating point support, this driver is divided
@@ -28,6 +33,29 @@ The status of the last update can be checked with the `status()` call.
 Once a successful update has occurred, the measurements can be
 queried with `temperature()` and `humidity()`.
 
+The normal pattern to use this driver is shown in the example below:
+
+```ts
+basic.forever(() => {
+    // Update the sensor reading
+    sht3xDriver.update(sht3xDriver.sht3xAddr.sht3xAddrA0);
+    // Check if the reading was successful
+    let status = sht3xDriver.status();
+    if (status == 0) {
+        // If so, use the data
+        let rh = sht3xDriver.humidity();
+        let tmp = sht3xDriver.temperature();
+        serial.writeLine("%RH: " + rh);
+        serial.writeLine("TMP: " + tmp);
+    }
+    else {
+        // If not, handle the error
+        serial.writeLine("sht3x Error: "+status);
+    }
+    basic.pause(1000);
+})
+```
+
 ## Use this extension
 
 This repository can be added as an **extension** in MakeCode.
@@ -44,6 +72,10 @@ To edit this repository in MakeCode.
 * open [Makecode micro:bit editor](makecode.microbit.org)
 * click on **Import** then click on **Import URL**
 * paste **https://github.com/** and click import
+
+## Attributions
+
+Humidity Icon made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from [www.flaticon.com].
 
 ## Blocks preview
 
