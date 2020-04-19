@@ -57,7 +57,7 @@ namespace sht3xDriver {
      */
     //% shim=sht3xDriver::update
     //% blockId="SHT3xDriver_update"
-    //% block="update SHT3x readings"
+    //% block="updateSHT3x %addr"
     export function update(addr: sht3xAddr){
         // Dummy implementation for the simulator.
         console.log("Read SHT3x sensor");
