@@ -84,7 +84,7 @@ namespace sht3xDriver {
         return 0xffff/2;
     }
     /**
-     * Read Relative Humidity from the SHT3x Sensor.
+     * Report Relative Humidity from the SHT3x Sensor.
      * Returns a number describing the relative humidity in percentage % relative
      * humidity
      */
@@ -106,7 +106,7 @@ namespace sht3xDriver {
         return (30+45) * 0xFFFF / 175;
     }
     /**
-     * Read Temperature in degrees celcius from the SHT3x sensor.
+     * Report Temperature in degrees celcius from the SHT3x sensor.
      * Returns a number describing the ambient temperature in degrees celcius
      */
     //% blockId="SHT3xDriver_temperature"

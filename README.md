@@ -56,6 +56,58 @@ basic.forever(() => {
 })
 ```
 
+### Update SHT3x readings #sht3xdriver-update
+
+This driver only communicates with the SHT3x when an update is performed. This saves power and
+improves speed. However, this means that the readings must be updated before they are used.
+
+This function initiates an I2C reading of a SHT3x sensor. It takes a 
+argument of the SHT3x's I2C address. The supported addressses are:
+
+* A0: 0x44
+* A1: 0x45
+
+The driver uses clock
+stretching to wait until the SHT3x finishes a read. The SHT3x is
+instructed to use a one-shot high precision measurement. A CRC is
+calculated for each measurement, both temperature and humidity.
+
+The temperature and humidity data is stored in the internal raw
+variables. It can be queried with SHT3xHumidity and SHT3xTemperature.
+
+The internal status variable is also updated by this function. It can
+be queried with SHT3xStatus.
+
+status is set to:
+
+* 0 for success
+* 1 for failure on i2c write
+* 2 for failure on i2c read
+* 3 if temperature checksum is invalid
+* 4 if humidity checksum is invalid
+
+### Check the status of the last SHT3x update #sht3xdriver-status
+
+This function returns the status of the last update
+
+status is set to:
+
+* 0 for success
+* 1 for failure on i2c write
+* 2 for failure on i2c read
+* 3 if temperature checksum is invalid
+* 4 if humidity checksum is invalid
+
+### Return the temperature reading of the last SHT3x update #sht3xdriver-temperature
+
+Report Temperature in degrees celcius from the SHT3x sensor. Returns the last valid
+temperature reading in degrees celcius between -45 and 130.
+
+### Return the temperature reading of the last SHT3x update #sht3xdriver-humidity
+
+Report relative humidity in percentage from the SHT3x sensor. Returns the last valid
+humidity reading in relative humidity % between 0% and 100%s.
+
 ## Use this extension
 
 This repository can be added as an **extension** in MakeCode.
