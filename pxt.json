@@ -1,6 +1,6 @@
 {
     "name": "sht3x_driver",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Driver for the Sensirion SHT3x series I2C temperature and humidity sensors",
     "dependencies": {
         "core": "*"
