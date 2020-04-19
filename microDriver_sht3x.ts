@@ -34,7 +34,7 @@
  * The SHT3x Driver provides access to the functionality of the SHT30, SHT31 
  * and SHT35 sensors
  */
-//% color=#5c7ef5 weight=25 icon="\uf043" block="sht3x Sensor"
+//% color=#5c7ef5 weight=25 icon="\uf043" block="SHT3x Sensor"
 namespace sht3xDriver {
     export enum Sht3xAddr {
         //% block="A0"
@@ -44,23 +44,7 @@ namespace sht3xDriver {
     }
 
     /**
-     * @brief Perform a reading of a SHT3x sensor
-     * 
-     * This function initiates an I2C reading of a SHT3x sensor. It uses clock
-     * stretching to wait until the SHT3x finishes a read. The SHT3x is
-     * instructed to use a one-shot high precision measurement. A CRC is
-     * calculated for each measurement.
-     * 
-     * The temperature and humidity data is stored in the internal raw
-     * variables. It can be queried with humidityRaw and temperatureRaw.
-     * 
-     * The internal status variable is also updated by this function. It can
-     * be queried with status.
-     * 
-     * @param addr The i2c address of the SHT3x.
-     * 
-     * status is set to 3 if temperature checksum is invalid
-     * status is set to 4 if humidity checksum is invalid
+     * Update a SHT3x sensor reading
      */
     //% shim=sht3xDriver::update
     //% blockId="SHT3xDriver_update"
@@ -71,7 +55,7 @@ namespace sht3xDriver {
     }
     
     /**
-     * @brief report the status of the last update
+     * Report the status of the last update
      * 
      * @retval 0 success
      * @retval 1, the I2C write failed
